@@ -23,14 +23,16 @@ const BubblePage = () => {
 
     return (
         <>
-            <Link
-                to="/logout"
-                onClick={() => {
-                    localStorage.removeItem("token");
-                }}
-            >
-                Logout
-            </Link>
+            <nav>
+                <Link
+                    to="/logout"
+                    onClick={() => {
+                        localStorage.removeItem("token");
+                    }}
+                >
+                    Logout
+                </Link>
+            </nav>
             <div className="row">
                 <div className="col-md-3">
                     <ColorList colors={colorList} updateColors={setColorList} />
