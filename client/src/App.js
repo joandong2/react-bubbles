@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import BubblePage from "./components/BubblePage";
@@ -11,14 +11,14 @@ function App() {
         <Router>
             <div className="container">
                 <div className="App">
-                    <h1 className="text-center">
+                    <h4 className="text-center">
                         React Bubbles - Sprint Project
-                    </h1>
+                    </h4>
                     {/* Build a PrivateRoute component that will display BubblePage when you're authenticated */}
                     <Switch>
                         <Route exact path="/" component={Login} />
                         <Route exact path="/login" component={Login} />
-                        <Route exact path="/logout" component={Login} />
+                        {/* <Route exact path="/logout" component={Login} /> */}
                         <PrivateRoute
                             exact
                             path="/bubbles"

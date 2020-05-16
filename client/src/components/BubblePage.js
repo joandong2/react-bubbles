@@ -25,7 +25,8 @@ const BubblePage = () => {
         <>
             <nav>
                 <Link
-                    to="/logout"
+                    className="btn btn-sm btn-danger"
+                    to="/login"
                     onClick={() => {
                         localStorage.removeItem("token");
                     }}
