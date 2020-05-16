@@ -9,11 +9,24 @@ const initialColor = {
 const ColorList = ({ colors, updateColors }) => {
     //console.log(colors);
     const [editing, setEditing] = useState(false);
+    const [newColor, setNewColor] = useState(initialColor);
     const [colorToEdit, setColorToEdit] = useState(initialColor);
 
     const editColor = (color) => {
         setEditing(true);
         setColorToEdit(color);
+    };
+
+    const saveColor = (e) => {
+        e.preventDefault();
+        axiosWithAuth()
+            .post(`/colors/`, newColor)
+            .then((res) => {
+                window.location.reload(true);
+            })
+            .catch((err) => {
+                console.log("Err is: ", err);
+            });
     };
 
     const saveEdit = (e) => {
@@ -46,7 +59,6 @@ const ColorList = ({ colors, updateColors }) => {
 
     return (
         <div className="colors-wrap">
-            <p>colors</p>
             <ul>
                 {colors.map((color) => (
                     <li key={color.color} onClick={() => editColor(color)}>
@@ -75,6 +87,7 @@ const ColorList = ({ colors, updateColors }) => {
                     <label>
                         color name:
                         <input
+                            className="form-control"
                             onChange={(e) =>
                                 setColorToEdit({
                                     ...colorToEdit,
@@ -87,6 +100,7 @@ const ColorList = ({ colors, updateColors }) => {
                     <label>
                         hex code:
                         <input
+                            className="form-control"
                             onChange={(e) =>
                                 setColorToEdit({
                                     ...colorToEdit,
@@ -97,15 +111,56 @@ const ColorList = ({ colors, updateColors }) => {
                         />
                     </label>
                     <div className="button-row">
-                        <button type="submit">save</button>
-                        <button onClick={() => setEditing(false)}>
+                        <button type="submit" class="btn btn-info btn-sm">
+                            save
+                        </button>
+                        <button
+                            class="btn btn-warning btn-sm"
+                            onClick={() => setEditing(false)}
+                        >
                             cancel
                         </button>
                     </div>
                 </form>
             )}
-            <div className="spacer" />
+            {/* <div className="spacer" /> */}
             {/* stretch - build another form here to add a color */}
+            <hr />
+
+            <div className="newColor-wrapper">
+                <form onSubmit={saveColor}>
+                    <legend>add color</legend>
+                    <label>
+                        color:
+                        <input
+                            className="form-control"
+                            onChange={(e) =>
+                                setNewColor({
+                                    ...newColor,
+                                    color: e.target.value,
+                                })
+                            }
+                            value={newColor.color}
+                        />
+                    </label>
+                    <label>
+                        hex:
+                        <input
+                            className="form-control"
+                            onChange={(e) =>
+                                setNewColor({
+                                    ...newColor,
+                                    code: { hex: e.target.value },
+                                })
+                            }
+                            value={newColor.code.hex}
+                        />
+                    </label>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        add
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

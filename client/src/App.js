@@ -9,18 +9,22 @@ import "./styles.scss";
 function App() {
     return (
         <Router>
-            <div className="App">
-                {/* Build a PrivateRoute component that will display BubblePage when you're authenticated */}
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/logout" component={Login} />
-                    <PrivateRoute
-                        exact
-                        path="/bubbles"
-                        component={BubblePage}
-                    />
-                    {/* <Route
+            <div className="container">
+                <div className="App">
+                    <h1 className="text-center">
+                        React Bubbles - Sprint Project
+                    </h1>
+                    {/* Build a PrivateRoute component that will display BubblePage when you're authenticated */}
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/logout" component={Login} />
+                        <PrivateRoute
+                            exact
+                            path="/bubbles"
+                            component={BubblePage}
+                        />
+                        {/* <Route
                         path="/login"
                         render={(props) => (
                             <Login {...props} logged={loggedIn} />
@@ -32,8 +36,9 @@ function App() {
                         exact
                         path="/edit/:id"
                         component={EditFriend} */}
-                    />
-                </Switch>
+                        />
+                    </Switch>
+                </div>
             </div>
         </Router>
     );

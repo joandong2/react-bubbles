@@ -31,8 +31,14 @@ const BubblePage = () => {
             >
                 Logout
             </Link>
-            <ColorList colors={colorList} updateColors={setColorList} />
-            <Bubbles colors={colorList} />
+            <div className="row">
+                <div className="col-md-3">
+                    <ColorList colors={colorList} updateColors={setColorList} />
+                </div>
+                <div className="col-md-9">
+                    <Bubbles colors={colorList} />
+                </div>
+            </div>
         </>
     );
 };
