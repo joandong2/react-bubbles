@@ -1,14 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
+import { axiosWithAuth } from "../util/axiosWithAuth";
 
-const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
-  return (
-    <>
-      <h1>Welcome to the Bubble App!</h1>
-      <p>Build a login page here</p>
-    </>
-  );
+const Login = (props) => {
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    // make a post request to retrieve a token from the api
+    // when you have handled the token, navigate to the BubblePage route
+
+    const submitHander = (e) => {
+        e.preventDefault();
+        axiosWithAuth()
+            .post("/login", user)
+            .then((res) => {
+                localStorage.setItem("token", res.data.payload);
+                props.history.push("/bubbles");
+            })
+            .catch((err) => {
+                console.log("Err is: ", err);
+            });
+        setUser({
+            username: "",
+            password: "",
+        });
+    };
+
+    return (
+        <>
+            <p>Login</p>
+            <form onSubmit={submitHander}>
+                <div className="form-group">
+                    <input
+                        type="text"
+                        name="username"
+                        className="form-control"
+                        placeholder="username"
+                        value={user.username}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        placeholder="password"
+                        value={user.password}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button type="submit" className="btn btn-dark btn-sm">
+                    Login
+                </button>
+            </form>
+        </>
+    );
 };
 
 export default Login;
